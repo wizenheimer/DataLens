@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # local apps
     "teams",
     "accounts",
+    "snippets",
 ]
 
 MIDDLEWARE = [

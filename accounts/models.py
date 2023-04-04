@@ -4,6 +4,7 @@ from datetime import date
 
 from .managers import UserManager
 from teams.models import Team
+from snippets.models import Snippet
 
 
 class User(AbstractUser):
@@ -17,6 +18,14 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True)
     # team
     teams = models.ManyToManyField(Team, through="TeamAssignment")
+    # editor of the snippet
+    editor = models.ManyToManyField(
+        Snippet, related_name="with_editor_access", through="EditorAssignment"
+    )
+    # viewer of the snippet
+    viewer = models.ManyToManyField(
+        Snippet, related_name="with_viewer_access", through="ViewerAssignment"
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -40,3 +49,25 @@ class TeamAssignment(models.Model):
 
     def __str__(self):
         return f"team:{str(self.team.id)} user:{str(self.user.id)}"
+
+
+class EditorAssignment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    snippet = models.ForeignKey(Snippet, on_delete=models.CASCADE)
+    # permissions
+    can_add_editor = models.BooleanField(default=True)
+    can_remove_editor = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"snippet:{str(self.snippet.id)} user:{str(self.user.id)}"
+
+
+class ViewerAssignment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    snippet = models.ForeignKey(Snippet, on_delete=models.CASCADE)
+    # permissions
+    can_add_viewer = models.BooleanField(default=True)
+    can_remove_viewer = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"snippet:{str(self.snippet.id)} user:{str(self.user.id)}"
