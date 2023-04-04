@@ -3,13 +3,21 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import UserCreationForm, UserChangeForm
-from .models import User
+from .models import User, TeamAssignment
 
 
-class UserAdmin(UserAdmin):
+class team_inline(admin.TabularInline):
+    model = TeamAssignment
+    extra = 1
+
+
+class UserAdmin(admin.ModelAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
     model = User
+    inlines = [
+        team_inline,
+    ]
     list_display = (
         "email",
         "is_staff",
@@ -49,3 +57,4 @@ class UserAdmin(UserAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(TeamAssignment)
