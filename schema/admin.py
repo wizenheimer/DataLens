@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Schema, Table, Column
 
-from django.contrib import admin
-from .models import Schema
 from accounts.models import SchemaEditorAssignment, SchemaViewerAssignment
+from .models import Schema, Table, Column, DataSource
 
 
 class editor_inline(admin.TabularInline):
@@ -27,6 +25,6 @@ class SchemaAdmin(admin.ModelAdmin):
 admin.site.register(Schema, SchemaAdmin)
 admin.site.register(SchemaEditorAssignment)
 admin.site.register(SchemaViewerAssignment)
-# admin.site.register(Schema)
+admin.site.register(DataSource)
 admin.site.register(Table)
 admin.site.register(Column)
