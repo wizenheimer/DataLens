@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "teams",
     "accounts",
     "snippets",
+    "schema",
 ]
 
 MIDDLEWARE = [

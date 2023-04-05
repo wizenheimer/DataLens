@@ -5,6 +5,7 @@ from datetime import date
 from .managers import UserManager
 from teams.models import Team
 from snippets.models import Snippet
+from schema.models import Schema
 
 
 class User(AbstractUser):
@@ -19,12 +20,20 @@ class User(AbstractUser):
     # team
     teams = models.ManyToManyField(Team, through="TeamAssignment")
     # editor of the snippet
-    editor = models.ManyToManyField(
+    snippet_editor = models.ManyToManyField(
         Snippet, related_name="with_editor_access", through="EditorAssignment"
     )
     # viewer of the snippet
-    viewer = models.ManyToManyField(
+    snippet_viewer = models.ManyToManyField(
         Snippet, related_name="with_viewer_access", through="ViewerAssignment"
+    )
+    # editor of schema
+    schema_editor = models.ManyToManyField(
+        Schema, related_name="with_editor_access", through="SchemaEditorAssignment"
+    )
+    # viewer of schema
+    schema_viewer = models.ManyToManyField(
+        Schema, related_name="with_viewer_access", through="SchemaViewerAssignment"
     )
 
     USERNAME_FIELD = "email"
@@ -71,3 +80,25 @@ class ViewerAssignment(models.Model):
 
     def __str__(self):
         return f"snippet:{str(self.snippet.id)} user:{str(self.user.id)}"
+
+
+class SchemaViewerAssignment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    snippet = models.ForeignKey(Schema, on_delete=models.CASCADE)
+    # permissions
+    can_add_viewer = models.BooleanField(default=True)
+    can_remove_viewer = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"snippet:{str(self.schema.id)} user:{str(self.user.id)}"
+
+
+class SchemaEditorAssignment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    snippet = models.ForeignKey(Schema, on_delete=models.CASCADE)
+    # permissions
+    can_add_editor = models.BooleanField(default=True)
+    can_remove_editor = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"snippet:{str(self.schema.id)} user:{str(self.user.id)}"
