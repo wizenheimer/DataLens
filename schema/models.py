@@ -14,7 +14,9 @@ class DataSource(models.Model):
     # display name for the database
     name = models.CharField(max_length=250)
     url = models.URLField()
-    category = models.CharField(choices=DATASOURCE_OPTIONS)
+    category = models.CharField(
+        choices=DATASOURCE_OPTIONS, max_length=255, default="Undefined"
+    )
     host = models.CharField(max_length=250)
     port = models.CharField(max_length=250)
     # configuration name for the database
