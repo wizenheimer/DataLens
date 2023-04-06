@@ -23,9 +23,19 @@ class FolderSerializer(serializers.ModelSerializer):
 
 
 class FolderSerializerVerbose(serializers.ModelSerializer):
+    snippets = serializers.SerializerMethodField("get_snippets", read_only=True)
+
     class Meta:
         model = Folder
-        fields = "__all__"
+        fields = [
+            "id",
+            "snippets",
+        ]
+
+    def get_snippets(self, instance):
+        # return Snippet.objects.filter(folder=instance).values_list(flat=True)
+        # print(Snippet.objects.filter(folder=instance).values_list())
+        return Snippet.objects.filter(folder=instance).values()
 
 
 class SnippetSerializerVerbose(serializers.ModelSerializer):

@@ -44,5 +44,5 @@ class FolderDetailView(RetrieveUpdateDestroyAPIView):
 
 
 class FolderListView(ListCreateAPIView):
-    serializer_class = FolderSerializerVerbose
+    serializer_class = FolderSerializer
     queryset = Folder.objects.all()
