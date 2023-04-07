@@ -16,7 +16,7 @@ class TableSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_columns(self, instance):
-        return Table.objects.filter(column=instance).values()
+        return Column.objects.filter(table=instance).values()
 
 
 class SchemaSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class SchemaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_tables(self, instance):
-        return Table.objects.filter(table=instance).values()
+        return Table.objects.filter(schema=instance).values()
 
 
 class DataSourceSerializer(serializers.ModelSerializer):
