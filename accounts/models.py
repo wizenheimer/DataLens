@@ -84,7 +84,7 @@ class ViewerAssignment(models.Model):
 
 class SchemaViewerAssignment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    snippet = models.ForeignKey(Schema, on_delete=models.CASCADE)
+    schema = models.ForeignKey(Schema, on_delete=models.CASCADE)
     # permissions
     can_add_viewer = models.BooleanField(default=True)
     can_remove_viewer = models.BooleanField(default=True)
@@ -95,7 +95,7 @@ class SchemaViewerAssignment(models.Model):
 
 class SchemaEditorAssignment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    snippet = models.ForeignKey(Schema, on_delete=models.CASCADE)
+    schema = models.ForeignKey(Schema, on_delete=models.CASCADE)
     # permissions
     can_add_editor = models.BooleanField(default=True)
     can_remove_editor = models.BooleanField(default=True)

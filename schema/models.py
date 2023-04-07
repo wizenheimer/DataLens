@@ -39,7 +39,7 @@ class DataSource(models.Model):
 
 class Schema(models.Model):
     name = models.CharField(max_length=250)
-    folder = models.ForeignKey(
+    datasource = models.ForeignKey(
         DataSource, null=True, blank=True, on_delete=models.DO_NOTHING
     )
 
