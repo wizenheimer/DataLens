@@ -8,6 +8,9 @@ from .views import (
     TableDetailView,
     ColumnListView,
     ColumnDetailView,
+    DatasetListView,
+    DatasetDetailView,
+    DatasetReportView,
 )
 
 urlpatterns = [
@@ -23,4 +26,8 @@ urlpatterns = [
     # column view
     path("column/<int:pk>/", ColumnDetailView.as_view(), name="column_detail"),
     path("column/", ColumnListView.as_view(), name="column_list"),
+    # dataset view
+    path("dataset/<int:pk>/", DatasetDetailView.as_view(), name="dataset_detail"),
+    path("dataset/<int:pk>/report/", DatasetReportView, name="dataset_report"),
+    path("dataset/", DatasetListView.as_view(), name="dataset_list"),
 ]

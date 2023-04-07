@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import DataSource, Schema, Table, Column
+from .models import DataSource, Schema, Table, Column, Dataset
 
 
 class ColumnSerializer(serializers.ModelSerializer):
@@ -40,3 +40,9 @@ class DataSourceSerializer(serializers.ModelSerializer):
 
     def get_schemas(self, instance):
         return Schema.objects.filter(datasource=instance).values()
+
+
+class DatasetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dataset
+        fields = "__all__"

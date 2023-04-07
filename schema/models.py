@@ -1,6 +1,17 @@
 from django.db import models
 
 
+class Dataset(models.Model):
+    DATASET_OPTIONS = (
+        ("Excel", "Excel"),
+        ("CSV", "CSV"),
+    )
+    category = models.CharField(choices=DATASET_OPTIONS, max_length=255)
+    title = models.CharField(max_length=255, default="Dataset")
+    data = models.FileField()
+    report = models.FileField(blank=True)
+
+
 class DataSource(models.Model):
     DATASOURCE_OPTIONS = (
         ("PostgreSQL", "PostgreSQL"),
@@ -8,8 +19,6 @@ class DataSource(models.Model):
         ("Amazon Redshift", "Amazon Redshift"),
         ("Microsoft SQL Server", "Microsoft SQL Server"),
         ("Oracle", "Oracle"),
-        ("Excel", "Excel"),
-        ("CSV", "CSV"),
     )
     # display name for the database
     name = models.CharField(max_length=250)
