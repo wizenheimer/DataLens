@@ -102,3 +102,12 @@ def DatasetReportView(request, pk):
         dataset.save()
     current_site = get_current_site(request).domain
     return Response({"report": "http://" + current_site + dataset.report.url})
+
+
+@api_view(["GET"])
+def DatasetFetchFrame(request, pk):
+    dataset = get_object_or_404(Dataset, pk=pk)
+    df = pd.read_csv(dataset.data)
+    df_dicts = df.T.to_dict().values()
+
+    return Response({"Dataframe": df_dicts})

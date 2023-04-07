@@ -11,6 +11,7 @@ from .views import (
     DatasetListView,
     DatasetDetailView,
     DatasetReportView,
+    DatasetFetchFrame,
 )
 
 urlpatterns = [
@@ -28,6 +29,7 @@ urlpatterns = [
     path("column/", ColumnListView.as_view(), name="column_list"),
     # dataset view
     path("dataset/<int:pk>/", DatasetDetailView.as_view(), name="dataset_detail"),
+    path("dataset/<int:pk>/dataframe/", DatasetFetchFrame, name="dataset_dataframe"),
     path("dataset/<int:pk>/report/", DatasetReportView, name="dataset_report"),
     path("dataset/", DatasetListView.as_view(), name="dataset_list"),
 ]
