@@ -1,17 +1,13 @@
 from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
     ListCreateAPIView,
-    GenericAPIView,
 )
 from .serializers import (
     SnippetSerializer,
     SnippetSerializerVerbose,
-    FolderSerializer,
-    FolderSerializerVerbose,
 )
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Snippet, Folder
+
+from .models import Snippet
 
 
 # Views for Snippets
@@ -27,7 +23,6 @@ class SnippetListView(ListCreateAPIView):
 
 
 class SnippetDetailView(RetrieveUpdateDestroyAPIView):
-    # serializer_class = SnippetSerializer
     queryset = Snippet.objects.all()
 
     def get_serializer_class(self, *args, **kwargs):
@@ -35,14 +30,3 @@ class SnippetDetailView(RetrieveUpdateDestroyAPIView):
         if show_verbose:
             return SnippetSerializerVerbose
         return SnippetSerializer
-
-
-# Views for Folders
-class FolderDetailView(RetrieveUpdateDestroyAPIView):
-    serializer_class = FolderSerializerVerbose
-    queryset = Folder.objects.all()
-
-
-class FolderListView(ListCreateAPIView):
-    serializer_class = FolderSerializer
-    queryset = Folder.objects.all()

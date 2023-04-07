@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Snippet, Folder
+from .models import Snippet
 from accounts.models import EditorAssignment, ViewerAssignment
 
 
@@ -24,4 +24,3 @@ class SnippetAdmin(admin.ModelAdmin):
 admin.site.register(Snippet, SnippetAdmin)
 admin.site.register(EditorAssignment)
 admin.site.register(ViewerAssignment)
-admin.site.register(Folder)

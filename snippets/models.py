@@ -1,18 +1,9 @@
 from django.db import models
 
 
-class Folder(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 class Snippet(models.Model):
     # human readable description of the snippet
     label = models.TextField()
-    # snippet folder
-    folder = models.ForeignKey(Folder, on_delete=models.DO_NOTHING)
     # tag for the snippet
     tag = models.CharField(max_length=50)
     # content of the snippet
