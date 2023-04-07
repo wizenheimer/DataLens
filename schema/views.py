@@ -6,6 +6,7 @@ from rest_framework.generics import (
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.response import Response
+from rest_pandas import PandasSimpleView
 from django.core.files import File
 import pandas as pd
 from pandas_profiling import ProfileReport
@@ -71,7 +72,6 @@ class DatasetDetailView(RetrieveUpdateDestroyAPIView):
 
 
 @api_view(["GET"])
-# @renderer_classes([TemplateHTMLRenderer])
 def DatasetReportView(request, pk):
     description = request.data.get("description", "")
     copyright_holder = request.data.get("copyright_holder", "")
@@ -104,10 +104,7 @@ def DatasetReportView(request, pk):
     return Response({"report": "http://" + current_site + dataset.report.url})
 
 
-@api_view(["GET"])
-def DatasetFetchFrame(request, pk):
-    dataset = get_object_or_404(Dataset, pk=pk)
-    df = pd.read_csv(dataset.data)
-    df_dicts = df.T.to_dict().values()
-
-    return Response({"Dataframe": df_dicts})
+class DatasetFetchFrame(PandasSimpleView):
+    def get_data(self, request, pk, *args, **kwargs):
+        dataset = get_object_or_404(Dataset, pk=pk)
+        return pd.read_csv(dataset.data)
