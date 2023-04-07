@@ -100,3 +100,25 @@ def generate_schema(url):
         schema_dict[schema] = schema_tables
 
     return schema_dict
+
+
+def run_query(raw_sql, url):
+    """Runs a query against the database and returns pandas dataframe"""
+    from sqlalchemy.sql import text
+    from sqlalchemy import create_engine
+    import pandas as pd
+
+    # create a sqlalchemy engine
+    engine = create_engine(url)
+
+    # execute the raw sql query using sqlalchemy's text function
+    query = text(raw_sql)
+    result_proxy = engine.execute(query)
+
+    # convert the result proxy into a pandas dataframe
+    df = pd.DataFrame(result_proxy.fetchall(), columns=result_proxy.keys())
+
+    # close the database connection
+    result_proxy.close()
+
+    return df
