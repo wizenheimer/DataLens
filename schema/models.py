@@ -6,8 +6,8 @@ class DataSource(models.Model):
         ("PostgreSQL", "PostgreSQL"),
         ("MySQL", "MySQL"),
         ("Amazon Redshift", "Amazon Redshift"),
-        ("Big Query", "Big Query"),
-        ("Snowflake", "Snowflake"),
+        ("Microsoft SQL Server", "Microsoft SQL Server"),
+        ("Oracle", "Oracle"),
         ("Excel", "Excel"),
         ("CSV", "CSV"),
     )
