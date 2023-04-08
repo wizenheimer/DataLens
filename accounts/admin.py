@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import UserCreationForm, UserChangeForm
-from .models import User, TeamAssignment
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import User, TeamAssignment, SnippetAssignment
 
 
 class team_inline(admin.TabularInline):
@@ -11,13 +11,16 @@ class team_inline(admin.TabularInline):
     extra = 1
 
 
+class snippet_inline(admin.TabularInline):
+    model = SnippetAssignment
+    extra = 1
+
+
 class UserAdmin(admin.ModelAdmin):
-    add_form = UserCreationForm
-    form = UserChangeForm
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
     model = User
-    inlines = [
-        team_inline,
-    ]
+    inlines = [team_inline, snippet_inline]
     list_display = (
         "email",
         "is_staff",
@@ -29,7 +32,15 @@ class UserAdmin(admin.ModelAdmin):
         "is_active",
     )
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (
+            None,
+            {
+                "fields": (
+                    "email",
+                    "password",
+                )
+            },
+        ),
         (
             "Permissions",
             {"fields": ("is_staff", "is_active", "groups", "user_permissions")},
@@ -58,3 +69,4 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(TeamAssignment)
+admin.site.register(SnippetAssignment)

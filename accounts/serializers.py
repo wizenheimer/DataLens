@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, TeamAssignment
+from .models import User, TeamAssignment, SnippetAssignment
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -26,19 +26,41 @@ class TeamAssignmentSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 
+class SnippetAssignmentSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.ReadOnlyField()
+    can_view_snippet = serializers.ReadOnlyField()
+    can_edit_snippet = serializers.ReadOnlyField()
+
+    class Meta:
+        model = SnippetAssignment
+        fields = [
+            "id",
+            "can_view_snippet",
+            "can_edit_snippet",
+            "begin_date",
+        ]
+
+
 class ProfileSerializerVerbose(serializers.ModelSerializer):
-    teams = TeamAssignmentSerializer(source="teamassignment_set", many=True)
+    teams = TeamAssignmentSerializer(
+        source="teamassignment_set", many=True, required=False
+    )
+    snippets = SnippetAssignmentSerializer(
+        source="snippetassignment_set", many=True, required=False
+    )
+    email = serializers.EmailField(required=False)
 
     class Meta:
         model = User
         fields = [
             "email",
             "teams",
+            "snippets",
         ]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(read_only=True)
+    email = serializers.EmailField()
 
     class Meta:
         model = User
