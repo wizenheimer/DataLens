@@ -1,3 +1,17 @@
-from django.shortcuts import render
+from rest_framework.generics import (
+    RetrieveUpdateDestroyAPIView,
+    ListCreateAPIView,
+)
+from .serializers import TeamSerializer
 
-# Create your views here.
+from .models import Team
+
+
+class TeamListView(ListCreateAPIView):
+    serializer_class = TeamSerializer
+    queryset = Team.objects.all()
+
+
+class TeamDetailView(RetrieveUpdateDestroyAPIView):
+    serializer_class = TeamSerializer
+    queryset = Team.objects.all()
