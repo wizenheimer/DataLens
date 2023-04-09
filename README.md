@@ -1,54 +1,6 @@
 
-# <p align="center">DataLens</p>
 
-
-![Image](multimedia/hero.jpg)
-
-<p align="center"> Diagnose with Data, Treat with Design </p>        
-
-
-## 🫡 Features    
-- SQL? No Thanks 😼 : GPT-3 powered interface allows you to query data using natural language, making data analysis easy and accessible for everyone.
-- Transform data into insights 🤓 : Extended support for data visualization for more granular data analysis. Don't just collect data, create insights!
-- Create, don't duplicate 🤝: Create snippets for frequent queries and share it across your teams.
-- Streamline Operations 🚀: Improve operational observability via real-time alerts. Say goodbye to missed opportunities and delayed decision making.
-- BYODB / Bring Your Own DB 🍾: Connects with multiple datasources, PostgreSQL, MySQL, Redshift and even CSV files. DataLens takes care of the technicalities so you can focus on what really matters ;)
-        
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Spark
-     - [ ] Snippets Management
-     - [ ] Team Feat
-     - [ ] Configure ElasticSearch
-     - [ ] Configure Payments
-- [ ] Markov
-     - [ ] Datasource Handling
-     - [ ] CSV / Excel Handling
-     - [ ] Autogenerate Schema
-     - [ ] Data Sampling
-- [ ] Query
-    - [ ] Query Validator
-    - [ ] Query Sandbox
-   - [ ] Query Autosuggest
-- [ ] Express
-     - [ ] Export DataFrame
-     - [ ] Charting Endpoint
-- [ ] Catalina
-     - [ ] Scheduled Alerts Endpoint
-     - [ ] Webhook Handling
-- [ ] Vanguard
-     - [ ] Configure Lambda
-     - [ ] Configure API Gateway
-     - [ ] Configure Cognito
-     - [ ] Configure Step Function
-     - [ ] Configure SNS
-     - [ ] Configure Transactional Mailing
-- [ ] Fresco
-     - [ ] Configure RDS, Parameter Store, ElastiCache
-     - [ ] Configure ECS, Elastic Load Balancing
-     - [ ] Configure Transactional Mailing
-     - [ ] Migrate asynchronous workload to serverless compute
+![Image](multimedia/readme.png)
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
