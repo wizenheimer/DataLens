@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import User, TeamAssignment, SnippetAssignment
+from .models import User, TeamAssignment, SnippetAssignment, SchemaAssignment
 
 
 class team_inline(admin.TabularInline):
@@ -16,11 +16,20 @@ class snippet_inline(admin.TabularInline):
     extra = 1
 
 
+class schema_inline(admin.TabularInline):
+    model = SchemaAssignment
+    extra = 1
+
+
 class UserAdmin(admin.ModelAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    inlines = [team_inline, snippet_inline]
+    inlines = [
+        team_inline,
+        snippet_inline,
+        schema_inline,
+    ]
     list_display = (
         "email",
         "is_staff",
@@ -70,3 +79,4 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(TeamAssignment)
 admin.site.register(SnippetAssignment)
+admin.site.register(SchemaAssignment)

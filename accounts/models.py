@@ -21,13 +21,8 @@ class User(AbstractUser):
     teams = models.ManyToManyField(Team, through="TeamAssignment")
     # snippet
     snippets = models.ManyToManyField(Snippet, through="SnippetAssignment")
-    schema_editor = models.ManyToManyField(
-        Schema, related_name="with_editor_access", through="SchemaEditorAssignment"
-    )
-    # viewer of schema
-    schema_viewer = models.ManyToManyField(
-        Schema, related_name="with_viewer_access", through="SchemaViewerAssignment"
-    )
+    # schema
+    schemas = models.ManyToManyField(Schema, through="SchemaAssignment")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -53,6 +48,21 @@ class SnippetAssignment(models.Model):
         return f"snippet:{str(self.snippet.id)} user:{str(self.user.id)}"
 
 
+class SchemaAssignment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    schema = models.ForeignKey(Schema, on_delete=models.CASCADE)
+    # permissions
+    can_view_schema = models.BooleanField(default=True)
+    can_edit_schema = models.BooleanField(default=True)
+    # join date
+    begin_date = models.DateTimeField(auto_now_add=True)
+    # exit date
+    end_date = models.DateField(default=date(9999, 12, 31))
+
+    def __str__(self):
+        return f"snippet:{str(self.schema.id)} user:{str(self.user.id)}"
+
+
 class TeamAssignment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
@@ -66,25 +76,3 @@ class TeamAssignment(models.Model):
 
     def __str__(self):
         return f"team:{str(self.team.id)} user:{str(self.user.id)}"
-
-
-class SchemaViewerAssignment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    schema = models.ForeignKey(Schema, on_delete=models.CASCADE)
-    # permissions
-    can_add_viewer = models.BooleanField(default=True)
-    can_remove_viewer = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f"snippet:{str(self.schema.id)} user:{str(self.user.id)}"
-
-
-class SchemaEditorAssignment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    schema = models.ForeignKey(Schema, on_delete=models.CASCADE)
-    # permissions
-    can_add_editor = models.BooleanField(default=True)
-    can_remove_editor = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f"snippet:{str(self.schema.id)} user:{str(self.user.id)}"
