@@ -25,6 +25,7 @@ urlpatterns = [
     path("profile/", include("accounts.urls")),
     path("teams/", include("teams.urls")),
     path("data/", include("schema.urls")),
+    path("grants/", include("grants.urls")),
 ]
 
 if settings.DEBUG:

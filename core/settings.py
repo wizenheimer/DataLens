@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "accounts",
     "snippets",
     "schema",
+    "grants",
 ]
 
 MIDDLEWARE = [
