@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.db import models
 from datetime import date
 
@@ -31,6 +32,19 @@ class User(AbstractUser):
 
     def __str__(self):
         return str(self.email)
+
+    def tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+        }
+
+    def get_access_token(self):
+        return str(RefreshToken.for_user(self).access_token)
+
+    def get_refresh_token(self):
+        return str(RefreshToken.for_user(self))
 
 
 class SnippetAssignment(models.Model):
